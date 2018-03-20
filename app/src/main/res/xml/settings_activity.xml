@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="Movies"
+
+        android:defaultValue="true" />
+    <ListPreference
+        android:dependency="pref_sync"
+        android:key="pref_synMoviesType"
+        android:title="Choose sort way"
+        android:dialogTitle="Select"
+        android:entries="@array/pref_example_list_values"
+        android:entryValues="@array/pref_example_list_values"
+        android:defaultValue="vote_average" />
+</PreferenceScreen>
