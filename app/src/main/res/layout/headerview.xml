@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="155dp"
-    android:orientation="vertical"
-    android:background="@android:color/transparent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
-    >
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
+    <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         >
         <ImageView
             android:id="@+id/Movie_photo"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="11dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
 
             />
         <!--    android:src="@drawable/profile_pic_480"-->
@@ -29,11 +21,11 @@
             android:id="@+id/Movie_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="22dp"
+            android:layout_marginLeft="22dp"
             android:layout_marginTop="15dp"
-            android:layout_toLeftOf="@+id/Movie_photo"
+            android:layout_toRightOf="@+id/Movie_photo"
             android:text="TextView"
-            android:textSize="11pt"
+            android:textSize="9pt"
 
             />
 
@@ -41,14 +33,13 @@
             android:id="@+id/Movie_descryption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="22dp"
-            android:layout_marginTop="15dp"
-            android:layout_toLeftOf="@+id/Movie_photo"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="36dp"
             android:layout_below="@+id/Movie_title"
             android:text="TextView"
-            android:textSize="11pt"
+            android:textSize="9pt"
 
             />
 
     </RelativeLayout>
-</LinearLayout>
+

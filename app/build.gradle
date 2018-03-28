@@ -12,6 +12,7 @@ android {
         lintOptions {
             disable 'PrivateResource'
         }
+        buildConfigField("String", "API_KEY", API_KEY)
     }
     buildTypes {
         release {

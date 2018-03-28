@@ -1,6 +1,9 @@
 package com.example.samar.moviesapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +58,18 @@ public class MainFragment extends Fragment {
     }
     private void updateMovies(String sort_by) {
         if (!sort_by.contentEquals("Favourite")) {
-            new AsyncTask1(sort_by).execute(sort_by);
+            ConnectivityManager cm =
+                    (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+            if(isConnected){
+                new AsyncTask1(sort_by).execute(sort_by);
+            }
+            else{
+                Toast.makeText(getActivity(),"There Is No Internet Connection",Toast.LENGTH_LONG);
+            }
         } else {
             DatabaseHandler1 db=new DatabaseHandler1(getActivity(),"Movies",null ,1);
             ArrayList <GridItem> Favmove=db.GetFavMovies();

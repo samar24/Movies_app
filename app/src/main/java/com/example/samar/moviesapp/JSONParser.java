@@ -3,7 +3,10 @@ package com.example.samar.moviesapp;
  * Created by Samar on 12/17/2015.
  */
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -130,7 +133,8 @@ public class JSONParser {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
 
-        // return JSON Object
-        return result.toString();
+            return result.toString();
+
+
     }
 }

@@ -8,11 +8,11 @@ import java.util.HashMap;
 public class UserFunctions {
      
    
-    private static String Movies ="http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc";
-	private static String Movies_voteAverage ="http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc";
+    private static String Movies ="https://api.themoviedb.org/3/movie/popular?";
+	private static String Movies_voteAverage ="https://api.themoviedb.org/3/movie/top_rated?";
 	private static String Movies_videos ="http://api.themoviedb.org/3/movie/";
 
-    private String  apiSecret = "";
+    private String  apiSecret = BuildConfig.API_KEY;
 
     // constructor
     public UserFunctions(){
@@ -24,8 +24,8 @@ public class UserFunctions {
 
    	 // Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
-   	 params.put("apiSecret", "");
-   	  json = jsonParser.makeHttpRequest(Movies+"&api_key="+apiSecret, "POST", params);
+   	 //params.put("apiSecret", "");
+   	  json = jsonParser.makeHttpRequest(Movies+"&api_key="+apiSecret, "GET", params);
    	 return json;
    	
    }
@@ -35,20 +35,16 @@ public class UserFunctions {
 
 		// Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
-		params.put("apiSecret", "");
-		json = jsonParser.makeHttpRequest(Movies_voteAverage+"&api_key="+apiSecret, "POST", params);
+		json = jsonParser.makeHttpRequest(Movies_voteAverage+"&api_key="+apiSecret, "GET", params);
 		return json;
 
 	}
 	public String GetMovieVideos(String MovieId ) throws IOException{
 		String json;
 		JSONParser jsonParser = new JSONParser();
-//		Log.d("YARAB222", MovieId);
+
 		// Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
-
-		//params.put("id",MovieId );
-		//params.put("apiSecret", "");
 		json = jsonParser.makeHttpRequest(Movies_videos+MovieId+"/videos?api_key="+apiSecret, "GET", params);
 		return json;
 
@@ -59,9 +55,6 @@ public class UserFunctions {
 
 		// Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
-
-		//params.put("id",MovieId );
-		//params.put("apiSecret", "");
 		json = jsonParser.makeHttpRequest(Movies_videos+MovieId+"/reviews?api_key="+apiSecret, "GET", params);
 		return json;
 
