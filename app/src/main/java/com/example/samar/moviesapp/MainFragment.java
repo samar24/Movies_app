@@ -33,7 +33,7 @@ public class MainFragment extends Fragment {
    // private ProgressBar mProgressBar;
 
     private GridViewAdapter mGridAdapter;
-    private ArrayList<GridItem> mGridData= new ArrayList<GridItem>();
+
     UserFunctions userFunctions=new UserFunctions();
 
     public MainFragment() {
@@ -65,6 +65,7 @@ public class MainFragment extends Fragment {
             boolean isConnected = activeNetwork != null &&
                     activeNetwork.isConnectedOrConnecting();
             if(isConnected){
+
                 new AsyncTask1(sort_by).execute(sort_by);
             }
             else{
@@ -138,19 +139,14 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
         mGridView = (GridView) view.findViewById(R.id.gridView);
-       // mProgressBar = (ProgressBar)view. findViewById(R.id.progressBar);
 
-        //Initialize with empty data
-
-
-
-        updateMovies("popularity");
-      //  mProgressBar.setVisibility(View.VISIBLE);
+       updateMovies("popularity");//by Default
         return view;
 
     }
     public class AsyncTask1 extends AsyncTask<String, Void, Integer> {
         JSONArray jsonArray;
+        ArrayList<GridItem> mGridData=new ArrayList<>();
         JSONObject jObj;
         String json;
         GridItem item;
@@ -162,10 +158,15 @@ public class MainFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... params) {
             try {
-                json = userFunctions.GetMoviesByPopyilarity(SortCretriea, "desc");
+                if(SortCretriea.equals("popularity"))
+                json = userFunctions.GetMoviesByPopyilarity();
+
+             else if (SortCretriea.equals("vote_average"))
+                 json = userFunctions.GetMoviesByVoteAverage();
 
                 jObj = new JSONObject(json);
                 jsonArray = jObj.getJSONArray("results");
+
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         item = new GridItem();
@@ -174,13 +175,15 @@ public class MainFragment extends Fragment {
                         String Movie_id=obj1.getString("id");
                         String Poster_thumb=obj1.getString("poster_path");
                         String OverView=obj1.getString("overview");
-                        String Popuilirity=obj1.getString("popularity");
-                        String Votecount=obj1.getString("vote_count");
-                        String title=obj1.getString("original_title");
+                        String VoteAverage=obj1.getString("vote_average");
+                        String Release_Date=obj1.getString("release_date");
+                        String title=obj1.getString("title");
                         item.setTitle(title);
                         item.setImage(Poster_thumb);
                         item.SetMovie_id(Movie_id);
                         item.setOverview(OverView);
+                        item.setVoteAverage(VoteAverage);
+                        item.SetReleaseDate(Release_Date);
                         DatabaseHandler1 db=new DatabaseHandler1(getActivity(),"Movies",null ,1);
                         if(!db.CheckIsDataAlreadyInDBorNot(Movie_id)) { // in Favourites
                             item.SetFav("0");
@@ -216,25 +219,6 @@ public class MainFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                     //Get item at position
                     GridItem item = (GridItem) parent.getItemAtPosition(position);
-
-                  /*  Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                    ImageView imageView = (ImageView) v.findViewById(R.id.grid_item_image);
-
-
-                    int[] screenLocation = new int[2];
-                    imageView.getLocationOnScreen(screenLocation);
-
-
-                    intent.putExtra("left", screenLocation[0]).
-                            putExtra("top", screenLocation[1]).
-                            putExtra("width", imageView.getWidth()).
-                            putExtra("height", imageView.getHeight()).
-                            putExtra("title", item.getTitle()).
-                            putExtra("Movie_id",item.Get_movie_id()).
-                            putExtra("image", item.getImage()).
-                            putExtra("overview", item.Get_Overview()).
-                    putExtra("Favstate", item.GetFavourte());
-                    startActivity(intent);*/
                     ((Callback) getActivity()).onItemSelected(item);
                 }
             });

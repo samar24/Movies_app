@@ -18,22 +18,18 @@ public class UserFunctions {
     public UserFunctions(){
       
     }
-    public String GetMoviesByPopyilarity(String ShowType ,String SortType) throws IOException{
+    public String GetMoviesByPopyilarity() throws IOException{
    	 String json;
    	   JSONParser jsonParser = new JSONParser();
 
-   	 // Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
-   	 //params.put("apiSecret", "");
    	  json = jsonParser.makeHttpRequest(Movies+"&api_key="+apiSecret, "GET", params);
    	 return json;
    	
    }
-	public String GetMoviesByVoteAverage(String ShowType ,String SortType) throws IOException{
+	public String GetMoviesByVoteAverage() throws IOException{
 		String json;
 		JSONParser jsonParser = new JSONParser();
-
-		// Building Parameters ( you can pass as many parameters as you want)
 		HashMap<String, String>  params = new HashMap<String, String>();
 		json = jsonParser.makeHttpRequest(Movies_voteAverage+"&api_key="+apiSecret, "GET", params);
 		return json;

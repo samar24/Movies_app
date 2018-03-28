@@ -40,10 +40,13 @@ public class DetailActivityFragment extends Fragment {
     TrailerViewsAdapter mTrailersReviewsAdapter;
     UserFunctions userFunctions=new UserFunctions();
     private ArrayList<Trailer_Review_Item> mReviews_trailers_item=new ArrayList<Trailer_Review_Item>();
-    private String title1="";
+    private String title1;
     private String Overview1;
     private String image;
     private String Fav;
+    private String Release_date;
+
+    private String Vote_average;
     public DetailActivityFragment() {
     }
 
@@ -124,6 +127,8 @@ public class DetailActivityFragment extends Fragment {
             image = bundle.getString("image");
             MovieId = bundle.getString("Movie_id");
             Overview1 = bundle.getString("overview");
+            Release_date = bundle.getString("release_date");
+            Vote_average = bundle.getString("vote_average");
             Fav = bundle.getString("Favstate");
 
         }
@@ -281,10 +286,14 @@ public class DetailActivityFragment extends Fragment {
             View header = getActivity().getLayoutInflater().inflate(R.layout.headerview,null);
             TextView title =(TextView)header.findViewById(R.id.Movie_title);
             TextView Overview =(TextView)header.findViewById(R.id.Movie_descryption);
+            TextView ReleaseDate =(TextView)header.findViewById(R.id.release_date);
+            TextView VoteAverage =(TextView)header.findViewById(R.id.vote_average);
             ImageView ImageMov=(ImageView)header.findViewById(R.id.Movie_photo);
             Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185//"+image).into(ImageMov);
             title.setText(title1);
             Overview.setText(Overview1);
+            ReleaseDate.setText(Release_date);
+            VoteAverage.setText(Vote_average);
 
             list1.addHeaderView(header);
             mTrailersReviewsAdapter = new TrailerViewsAdapter(getActivity(), R.layout.review_item_view,mReviews_trailers_item );

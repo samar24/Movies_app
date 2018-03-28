@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity  implements MainFragment.Cal
           arguments.putCharSequence("image", Movie.getImage());
           arguments.putCharSequence("Movie_id", Movie.Get_movie_id());
           arguments.putCharSequence("overview", Movie.Get_Overview());
+          arguments.putCharSequence("release_date", Movie.GetReleaseDate());
+          arguments.putCharSequence("vote_average", Movie.GetVoteAverage());
           arguments.putCharSequence("Favstate", Movie.GetFavourte());
 
           DetailActivityFragment fragment = new DetailActivityFragment();
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity  implements MainFragment.Cal
                    .putExtra("image", Movie.getImage())
                    .putExtra("Movie_id", Movie.Get_movie_id())
                    .putExtra("overview", Movie.Get_Overview())
+                   .putExtra("release_date", Movie.GetReleaseDate())
+                   .putExtra("vote_average", Movie.GetVoteAverage())
                    .putExtra("Favstate", Movie.GetFavourte());
           startActivity(intent);
         }

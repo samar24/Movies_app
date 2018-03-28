@@ -7,6 +7,9 @@ public class GridItem {
     private String Overview;
     private String Rate;
     private String FavouriteState;
+    private String VoteAverage;
+    private String ReleaseDate;
+
     public GridItem() {
         super();
     }
@@ -32,6 +35,12 @@ public class GridItem {
     public void setOverview(String Overview) {
         this.Overview = Overview;
     }
+    public void setVoteAverage(String VoteAverage) {
+        this.VoteAverage = VoteAverage;
+    }
+    public void SetReleaseDate(String ReleaseDate) {
+        this.ReleaseDate = ReleaseDate;
+    }
     public String Get_Overview() {
         return Overview;
     }
@@ -41,7 +50,12 @@ public class GridItem {
     public String GetFavourte() {
         return FavouriteState;
     }
-
+    public String GetVoteAverage() {
+        return VoteAverage;
+    }
+    public String GetReleaseDate() {
+        return ReleaseDate;
+    }
     public void SetMovie_id(String Movie_id) {
         this.MovieID = Movie_id;
     }
