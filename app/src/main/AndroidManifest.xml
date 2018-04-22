@@ -19,6 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity" />
+        <provider
+            android:authorities="com.example.samar.moviesapp.provider"
+            android:name="com.example.samar.moviesapp.data.AppContentProvider"
+            android:exported="true"
+            android:readPermission="com.example.samar.moviesapp.provider.READWRITE"
+            android:writePermission="com.example.samar.moviesapp.provider.READWRITE"/>
     </application>
 
 </manifest>

@@ -130,7 +130,7 @@ public class JSONParser {
         try {
             jObj = new JSONObject(result.toString());
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            Log.e("JSON Parser", "Error parsing com.example.samar.moviesapp.data " + e.toString());
         }
 
             return result.toString();

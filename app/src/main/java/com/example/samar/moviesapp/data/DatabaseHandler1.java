@@ -1,11 +1,14 @@
-package com.example.samar.moviesapp;
+package com.example.samar.moviesapp.data;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+
+import com.example.samar.moviesapp.GridItem;
 
 import java.util.ArrayList;
 
@@ -21,36 +24,43 @@ public class DatabaseHandler1 extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Movies";
 
 
-    private static final String TABLE_Movies = "MoviesDetails";
-
-
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "Title";
-    private static final String KEY_Img = "Image";
-    private static final String KEY_Favourite = "Fav";
-    private static final String KEY_Overview = "Overview";
-    public DatabaseHandler1(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHandler1(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_Movies + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_Img + " TEXT," + KEY_Favourite+" TEXT,"+ KEY_Overview+" TEXT"+")";
+        final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " +
+                Contract.MovieEntry.Table_Movie + "(" + Contract.MovieEntry._ID +
+                " TEXT NOT NULL, " +
+                Contract.MovieEntry.KEY_NAME + " TEXT NOT NULL, " +
+                Contract.MovieEntry.KEY_Overview +
+                " TEXT NOT NULL, " +
+                Contract.MovieEntry.KEY_Img +
+                " TEXT NOT NULL, "  +
+                Contract.MovieEntry.KEY_Favourite +
+                " TEXT NOT NULL "+")";
+        db.execSQL(SQL_CREATE_MOVIE_TABLE);
+      //  String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_Movies + "("
+            //    + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+              //  + KEY_Img + " TEXT," + KEY_Favourite+" TEXT,"+ KEY_Overview+" TEXT"+")";
 
-        db.execSQL(CREATE_CONTACTS_TABLE);
+      //  db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Movies);
+        // Drop the table
+        db.execSQL("DROP TABLE IF EXISTS " + Contract.MovieEntry.Table_Movie);
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" +
+                Contract.MovieEntry.Table_Movie + "'");
 
-        // Create tables again
+        // re-create database
         onCreate(db);
     }
-    public void addMovie(GridItem Movie) {
+  /*  public void addMovie(GridItem Movie) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -104,15 +114,7 @@ public class DatabaseHandler1 extends SQLiteOpenHelper {
         db.update(TABLE_Movies, values, KEY_ID + " IN(" + id + ")",null);
 
     }
-    public  void Update2(String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
 
-        values.put(KEY_Favourite, "1");
-        // updating row
-        db.update(TABLE_Movies, values, KEY_ID + " IN(" + id + ")",null);
-
-    }
      public boolean CheckIsDataAlreadyInDBorNot(String fieldValue) {
         SQLiteDatabase db = this.getWritableDatabase();
         String Query = "Select * from " + TABLE_Movies + " where " + KEY_ID + " = " + fieldValue;
@@ -149,4 +151,5 @@ public class DatabaseHandler1 extends SQLiteOpenHelper {
         cursor.close();
         return Item;
     }
+*/
 }

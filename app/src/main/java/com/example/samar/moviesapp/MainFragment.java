@@ -25,6 +25,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.example.samar.moviesapp.data.DatabaseHandler1;
+import com.example.samar.moviesapp.data.Utility;
+
 /**
  * Created by Samar on 1/15/2016.
  */
@@ -72,24 +75,14 @@ public class MainFragment extends Fragment {
                 Toast.makeText(getActivity(),"There Is No Internet Connection",Toast.LENGTH_LONG);
             }
         } else {
-            DatabaseHandler1 db=new DatabaseHandler1(getActivity(),"Movies",null ,1);
-            ArrayList <GridItem> Favmove=db.GetFavMovies();
+
+            ArrayList <GridItem> Favmove= Utility.GetFavMovies(getActivity());
 
             mGridAdapter = new GridViewAdapter(getActivity(), R.layout.grid_item_layout, Favmove);
             mGridView.setAdapter(mGridAdapter);
             mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                     GridItem item = (GridItem) parent.getItemAtPosition(position);
-                    //Get item at position
-          /*          GridItem item = (GridItem) parent.getItemAtPosition(position);
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                    ImageView imageView = (ImageView) v.findViewById(R.id.grid_item_image);
-                    intent.putExtra("title", item.getTitle()).
-                            putExtra("Movie_id",item.Get_movie_id()).
-                            putExtra("image", item.getImage()).
-                            putExtra("overview", item.Get_Overview()).
-                            putExtra("Favstate", item.GetFavourte());
-                    startActivity(intent);*/
                     ((Callback) getActivity()).onItemSelected(item);
                 }
             });
@@ -184,8 +177,7 @@ public class MainFragment extends Fragment {
                         item.setOverview(OverView);
                         item.setVoteAverage(VoteAverage);
                         item.SetReleaseDate(Release_Date);
-                        DatabaseHandler1 db=new DatabaseHandler1(getActivity(),"Movies",null ,1);
-                        if(!db.CheckIsDataAlreadyInDBorNot(Movie_id)) { // in Favourites
+                      if(!Utility.CheckIsDataAlreadyInDBorNot(getActivity(),Movie_id)) { // in Favourites
                             item.SetFav("0");
                         }
                         else {
@@ -198,7 +190,7 @@ public class MainFragment extends Fragment {
                     }
                 }
             } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                Log.e("JSON Parser", "Error parsing com.example.samar.moviesapp.data " + e.toString());
 
 
             } catch (IOException e) {

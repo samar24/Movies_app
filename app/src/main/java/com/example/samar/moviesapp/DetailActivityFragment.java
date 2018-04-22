@@ -1,6 +1,7 @@
 package com.example.samar.moviesapp;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.example.samar.moviesapp.data.Contract;
+import com.example.samar.moviesapp.data.DatabaseHandler1;
+import com.example.samar.moviesapp.data.Utility;
 
 /**
  * Created by Samar on 1/16/2016.
@@ -80,11 +85,13 @@ public class DetailActivityFragment extends Fragment {
 
 
                 if (!title1.equals("")) {
-                    DatabaseHandler1 db=new DatabaseHandler1(getActivity(),"Movies",null ,1);
 
-                    if(db.CheckIsDataAlreadyInDBorNot(MovieId)) {
-                        if (db.GetMovie(MovieId).GetFavourte().equals("1")) {
-                            db.Update(MovieId); // will update it to 0
+                    if(Utility.CheckIsDataAlreadyInDBorNot(getActivity(),MovieId)) {
+                        if (Utility.GetMovie(getActivity(),MovieId).GetFavourte().equals("1")) {
+                            ContentValues values = new ContentValues();
+                            values.put(Contract.MovieEntry.KEY_Favourite,"0");
+
+                            getActivity(). getContentResolver().update(Contract.MovieEntry.CONTENT_URI,values,Contract.MovieEntry.KEY_ID+"=?",new String[] {String.valueOf(MovieId)});
                             item.setIcon(R.drawable.abc_btn_rating_star_off_mtrl_alpha);
                             Toast.makeText(getActivity(), "Removes from favourites", Toast.LENGTH_SHORT).show();
                         }
@@ -95,7 +102,15 @@ public class DetailActivityFragment extends Fragment {
                             Item.setTitle(title1);
                             Item.setOverview(Overview1);
                             Item.setImage(image);
-                            db.addMovie(Item);
+                            ContentValues values = new ContentValues();
+
+                            values.put(Contract.MovieEntry.KEY_ID, MovieId);
+                            values.put(Contract.MovieEntry.KEY_NAME,title1);
+                            values.put(Contract.MovieEntry.KEY_Img,image );
+                            values.put(Contract.MovieEntry.KEY_Overview, Overview1);
+                            values.put(Contract.MovieEntry.KEY_Favourite,"1");
+                             getActivity().getContentResolver().insert(Contract.MovieEntry.CONTENT_URI,
+                                    values);
                             item.setIcon(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
                         }
                     }
@@ -106,7 +121,15 @@ public class DetailActivityFragment extends Fragment {
                         Item.setTitle(title1);
                         Item.setOverview(Overview1);
                         Item.setImage(image);
-                        db.addMovie(Item);
+                        ContentValues values = new ContentValues();
+
+                        values.put(Contract.MovieEntry.KEY_ID, MovieId);
+                        values.put(Contract.MovieEntry.KEY_NAME,title1);
+                        values.put(Contract.MovieEntry.KEY_Img,image );
+                        values.put(Contract.MovieEntry.KEY_Overview, Overview1);
+                        values.put(Contract.MovieEntry.KEY_Favourite,"1");
+                        getActivity().getContentResolver().insert(Contract.MovieEntry.CONTENT_URI,
+                                values);
                         item.setIcon(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
                     }
 

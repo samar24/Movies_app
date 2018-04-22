@@ -32,7 +32,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
 
     /**
-     * Updates grid data and refresh grid items.
+     * Updates grid com.example.samar.moviesapp.data and refresh grid items.
      * @param mGridData
      */
     public void setGridData(ArrayList<GridItem> mGridData) {
